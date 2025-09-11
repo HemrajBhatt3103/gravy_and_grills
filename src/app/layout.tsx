@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: './favicon.ico',
   },
 };
 
@@ -29,6 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body
         className={`antialiased bg-background text-foreground`}
       >
