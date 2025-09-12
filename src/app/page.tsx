@@ -217,33 +217,74 @@ export default function RestaurantMenu() {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => window.open('tel:9601834906', '_blank')}
-                className="text-green-600 border-green-600 hover:bg-green-50"
-              >
-                <Phone className="w-4 h-4 mr-1" />
-                Call
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => window.open('https://maps.app.goo.gl/d6obgmePqi5HuMBz8', '_blank')}
-                className="text-blue-600 border-blue-600 hover:bg-blue-50"
-              >
-                <MapPin className="w-4 h-4 mr-1" />
-                Find Us
-              </Button>
+              <div className="hidden md:flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.open('tel:9601834906', '_blank')}
+                  className="text-green-600 border-green-600 hover:bg-green-50"
+                >
+                  <Phone className="w-4 h-4 mr-1" />
+                  Call
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.open('https://maps.app.goo.gl/d6obgmePqi5HuMBz8', '_blank')}
+                  className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                >
+                  <MapPin className="w-4 h-4 mr-1" />
+                  Find Us
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleZomatoOrder}
+                  className="text-orange-600 border-orange-600 hover:bg-orange-50"
+                >
+                  Order on Zomato
+                </Button>
+              </div>
               <ThemeToggle />
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleZomatoOrder}
-                className="text-orange-600 border-orange-600 hover:bg-orange-50"
-              >
-                Order on Zomato
-              </Button>
+              <div className="md:hidden">
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button variant="outline" size="sm">
+                      <Utensils className="w-4 h-4" />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="right" className="w-[250px]">
+                    <SheetHeader>
+                      <SheetTitle>More Options</SheetTitle>
+                    </SheetHeader>
+                    <div className="grid gap-4 py-4">
+                      <Button
+                        variant="outline"
+                        onClick={() => window.open('tel:9601834906', '_blank')}
+                        className="text-green-600 border-green-600 hover:bg-green-50"
+                      >
+                        <Phone className="w-4 h-4 mr-2" />
+                        Call Us
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => window.open('https://maps.app.goo.gl/d6obgmePqi5HuMBz8', '_blank')}
+                        className="text-blue-600 border-blue-600 hover:bg-blue-50"
+                      >
+                        <MapPin className="w-4 h-4 mr-2" />
+                        Find Us
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={handleZomatoOrder}
+                        className="text-orange-600 border-orange-600 hover:bg-orange-50"
+                      >
+                        Order on Zomato
+                      </Button>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
             </div>
           </div>
         </div>
@@ -353,14 +394,16 @@ export default function RestaurantMenu() {
                   className="flex items-center gap-2"
                 >
                   <ShoppingCart className="w-5 h-5" />
-                  <span>View Cart ({getTotalItems()})</span>
+                  <span className="hidden sm:inline">View Cart ({getTotalItems()})</span>
+                  <span className="sm:hidden">({getTotalItems()})</span>
                   <span className="font-semibold">₹{getTotalPrice()}</span>
                 </Button>
                 <Button
                   onClick={handleCheckout}
                   className="bg-green-600 hover:bg-green-700"
                 >
-                  Checkout
+                  <span className="hidden sm:inline">Checkout</span>
+                  <ShoppingCart className="w-5 h-5 sm:hidden" />
                 </Button>
               </div>
             </div>
@@ -387,7 +430,7 @@ export default function RestaurantMenu() {
                           <h4 className="font-semibold text-gray-900 dark:text-gray-100">{item.name}</h4>
                           <p className="text-sm text-gray-600 dark:text-gray-400">₹{item.price} each</p>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 sm:gap-2">
                           <Button
                             size="sm"
                             variant="outline"
