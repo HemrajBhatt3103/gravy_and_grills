@@ -227,11 +227,11 @@ export default function RestaurantMenu() {
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-lg overflow-hidden">
+              <div className="w-24 h-24 rounded-lg overflow-hidden">
                 <img
                   src="/gravy-grills-logo.jpg"
                   alt="Gravy & Grills Logo"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement
                     target.style.display = 'none'
