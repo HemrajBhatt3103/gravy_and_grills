@@ -141,6 +141,19 @@ export default function RestaurantMenu() {
   const [cart, setCart] = useState<CartItem[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [isCartOpen, setIsCartOpen] = useState(false)
+  const [showUserDetailsForm, setShowUserDetailsForm] = useState(false)
+  const [userName, setUserName] = useState('')
+  const [userAddress, setUserAddress] = useState('')
+  const [formError, setFormError] = useState('')
+
+  useEffect(() => {
+    if (!isCartOpen) {
+      setShowUserDetailsForm(false)
+      setUserName('')
+      setUserAddress('')
+      setFormError('')
+    }
+  }, [isCartOpen])
 
   const filteredItems = menuData.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -181,11 +194,26 @@ export default function RestaurantMenu() {
   const getTotalPrice = () => cart.reduce((total, item) => total + (item.price * item.quantity), 0)
 
   const handleCheckout = () => {
+    setShowUserDetailsForm(true)
+  }
+
+  const handlePlaceOrder = () => {
+    if (!userName.trim() || !userAddress.trim()) {
+      setFormError('Name and Address are required.')
+      return
+    }
+    setFormError('')
+
     const message = cart.map(item => `${item.quantity}x ${item.name} - ₹${item.price * item.quantity}`).join('\n')
     const total = getTotalPrice()
-    const whatsappMessage = `Hello! I'd like to order:\n\n${message}\n\nTotal: ₹${total}\n\nThank you!`
+    const whatsappMessage = `Hello! I\'d like to order:\n\n${message}\n\nTotal: ₹${total}\n\nName: ${userName}\nAddress: ${userAddress}\n\nThank you!`
     const whatsappUrl = `https://wa.me/9601834906?text=${encodeURIComponent(whatsappMessage)}`
     window.open(whatsappUrl, '_blank')
+  }
+
+  const handleFloatingCheckoutClick = () => {
+    setIsCartOpen(true);
+    setShowUserDetailsForm(true);
   }
 
   const handleZomatoOrder = () => {
@@ -399,7 +427,7 @@ export default function RestaurantMenu() {
                   <span className="font-semibold">₹{getTotalPrice()}</span>
                 </Button>
                 <Button
-                  onClick={handleCheckout}
+                  onClick={handleFloatingCheckoutClick}
                   className="bg-green-600 hover:bg-green-700"
                 >
                   <span className="hidden sm:inline">Checkout</span>
@@ -466,21 +494,43 @@ export default function RestaurantMenu() {
                   <span>Total:</span>
                   <span>₹{getTotalPrice()}</span>
                 </div>
-                <div className="flex gap-2">
-                  <Button
-                    onClick={handleCheckout}
-                    className="flex-1 bg-green-600 hover:bg-green-700"
-                  >
-                    Checkout on WhatsApp
-                  </Button>
-                  <Button
-                    onClick={handleZomatoOrder}
-                    variant="outline"
-                    className="flex-1 text-orange-600 border-orange-600 hover:bg-orange-50"
-                  >
-                    Order on Zomato
-                  </Button>
-                </div>
+                {!showUserDetailsForm ? (
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={handleCheckout}
+                      className="flex-1 bg-green-600 hover:bg-green-700"
+                    >
+                      Checkout on WhatsApp
+                    </Button>
+                    <Button
+                      onClick={handleZomatoOrder}
+                      variant="outline"
+                      className="flex-1 text-orange-600 border-orange-600 hover:bg-orange-50"
+                    >
+                      Order on Zomato
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <Input
+                      placeholder="Name"
+                      value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
+                    />
+                    <Input
+                      placeholder="Address"
+                      value={userAddress}
+                      onChange={(e) => setUserAddress(e.target.value)}
+                    />
+                    {formError && <p className="text-sm text-red-500">{formError}</p>}
+                    <Button
+                      onClick={handlePlaceOrder}
+                      className="w-full bg-green-600 hover:bg-green-700"
+                    >
+                      Place Now
+                    </Button>
+                  </div>
+                )}
               </>
             )}
           </div>
