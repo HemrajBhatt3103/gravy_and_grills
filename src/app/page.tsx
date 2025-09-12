@@ -348,7 +348,7 @@ export default function RestaurantMenu() {
                               } else if (currentSrc.endsWith('.jpeg')) {
                                 target.src = `${baseName}.webp`;
                               } else if (currentSrc.endsWith('.webp')) {
-                                target.src = '/placeholder-food.jpg';
+                                target.src = '/fries_masala_.jpg';
                               }
                             }}
                           />
