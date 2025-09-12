@@ -134,7 +134,7 @@ const menuData: MenuItem[] = [
   { id: 'white-sauce-pasta', name: 'White Sauce Pasta', price: 250, description: 'Creamy white sauce pasta with vegetables', category: 'PASTA' },
   { id: 'red-sauce-pasta', name: 'Red Sauce Pasta', price: 250, description: 'Tomato based pasta with vegetables', category: 'PASTA' },
   { id: 'mix-sauce-pasta', name: 'Mix Sauce Pasta', price: 250, description: 'Combination of white and red sauce', category: 'PASTA' },
-  { id: 'fries-masala', name: 'Fries (Masala)', price: 130, description: 'Spiced French fries', category: 'PASTA' }
+  { id: 'fries-masala', name: 'Fries Masala', price: 130, description: 'Spiced French fries', category: 'PASTA' }
 ]
 
 export default function RestaurantMenu() {
