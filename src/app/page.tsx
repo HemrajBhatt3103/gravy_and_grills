@@ -228,13 +228,17 @@ export default function RestaurantMenu() {
     window.open('https://link.zomato.com/xqzv/rshare?id=5232558430563057', '_blank')
   }
 
+  const handleSwiggyOrder = () => {
+    window.open('https://www.swiggy.com/direct/brand/3154?source=swiggy-direct&subSource=generic', '_blank')
+  }
+
   const categoryOrder = ['BARBEQUE', 'MAIN COURSE', 'VEG', 'KAJU', 'ROTI', 'ACCOMPANIMENTS', 'DAL', 'CHINESE', 'CHOLE KULCHA', 'RICE', 'BIRYANI', 'SIZZLERS', 'PASTA'];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
+    <div className="min-h-screen bg-background dark:bg-gray-900 flex flex-col">
       {/* Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-40">
-        <div className="max-w-4xl mx-auto px-4 py-4">
+      <header className="bg-background dark:bg-gray-800 shadow-sm sticky top-0 z-40">
+        <div className="px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-24 h-24 rounded-lg overflow-hidden">
@@ -249,13 +253,13 @@ export default function RestaurantMenu() {
                   }}
                 />
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">Gravy & Grills</h1>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Managed by Hungry Birds</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Afternoon: 12:00 PM - 3:00 PM</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Evening: 6:00 PM - 12:00 AM</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Cloud Kitchen until 2:00 AM</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Minimum order: ₹350 (up to 3 km) | ₹500 (beyond 3 km)</p>
+              <div className="">
+                <h1 className="text-xl font-bold text-black dark:text-white">Gravy & Grills</h1>
+                <p className="text-sm text-black dark:text-gray-200">Managed by Hungry Birds</p>
+                <p className="text-sm text-black dark:text-gray-200">Afternoon: 12:00 PM - 3:00 PM</p>
+                <p className="text-sm text-black dark:text-gray-200">Evening: 6:00 PM - 12:00 AM</p>
+                <p className="text-sm text-black dark:text-gray-200">Cloud Kitchen until 2:00 AM</p>
+                <p className="text-sm text-black dark:text-gray-200">Minimum order: ₹350 (up to 3 km) | ₹500 (beyond 3 km)</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -282,9 +286,17 @@ export default function RestaurantMenu() {
                   variant="outline"
                   size="sm"
                   onClick={handleZomatoOrder}
-                  className="text-orange-600 border-orange-600 hover:bg-orange-50"
+                  className="text-red-600 border-red-600 hover:bg-red-50"
                 >
                   Order on Zomato
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleSwiggyOrder}
+                  className="text-orange-600 border-orange-600 hover:bg-orange-50"
+                >
+                  Order on Swiggy
                 </Button>
               </div>
               <ThemeToggle />
@@ -319,9 +331,16 @@ export default function RestaurantMenu() {
                       <Button
                         variant="outline"
                         onClick={handleZomatoOrder}
-                        className="text-orange-600 border-orange-600 hover:bg-orange-50"
+                        className="text-red-600 border-red-600 hover:bg-red-50"
                       >
                         Order on Zomato
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={handleSwiggyOrder}
+                        className="text-orange-600 border-orange-600 hover:bg-orange-50"
+                      >
+                        Order on Swiggy
                       </Button>
                     </div>
                   </SheetContent>
@@ -367,7 +386,7 @@ export default function RestaurantMenu() {
         })
         .map(([category, items]) => (
           <div key={category} className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 sticky top-20 bg-gray-50 dark:bg-gray-900 py-2">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 sticky top-20 bg-background dark:bg-gray-900 py-2">
               {category}
             </h2>
             <div className="grid gap-4 md:grid-cols-2">
@@ -435,7 +454,7 @@ export default function RestaurantMenu() {
             initial={{ y: 100 }}
             animate={{ y: 0 }}
             exit={{ y: 100 }}
-            className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg z-50"
+            className="fixed bottom-0 left-0 right-0 bg-background dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-lg z-50"
           >
             <div className="max-w-4xl mx-auto px-4 py-3">
               <div className="flex items-center justify-between">
@@ -537,10 +556,18 @@ export default function RestaurantMenu() {
                   <Button
                     onClick={handleZomatoOrder}
                     variant="outline"
-                    className="w-full text-orange-600 border-orange-600 hover:bg-orange-50"
+                    className="w-full text-red-600 border-red-600 hover:bg-red-50"
                     size="lg"
                   >
                     Order on Zomato
+                  </Button>
+                  <Button
+                    onClick={handleSwiggyOrder}
+                    variant="outline"
+                    className="w-full text-red-600 border-red-600 hover:bg-red-50"
+                    size="lg"
+                  >
+                    Order on Swiggy
                   </Button>
                 </div>
               ) : (
@@ -580,7 +607,7 @@ export default function RestaurantMenu() {
       </Sheet>
 
       {/* Footer */}
-      <footer className="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-auto">
+      <footer className="bg-background dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-auto">
         <div className="max-w-4xl mx-auto px-4 py-8">
           <div className="text-center space-y-4">
             <div className="space-y-2">

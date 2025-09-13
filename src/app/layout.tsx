@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: './favicon.ico',
+    icon: "/gravy-grills-logo.jpg",
   },
 };
 
@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/gravy-grills-logo.jpg" />
       </head>
       <body
         className={`antialiased bg-background text-foreground`}
