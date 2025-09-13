@@ -144,6 +144,7 @@ export default function RestaurantMenu() {
   const [showUserDetailsForm, setShowUserDetailsForm] = useState(false)
   const [userName, setUserName] = useState('')
   const [userAddress, setUserAddress] = useState('')
+  const [userPhone, setUserPhone] = useState('')
   const [formError, setFormError] = useState('')
 
   useEffect(() => {
@@ -198,15 +199,22 @@ export default function RestaurantMenu() {
   }
 
   const handlePlaceOrder = () => {
-    if (!userName.trim() || !userAddress.trim()) {
-      setFormError('Name and Address are required.')
+    if (!userName.trim() || !userAddress.trim() || !userPhone.trim()) {
+      setFormError('Name, Address, and Phone Number are required.')
       return
     }
+
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(userPhone)) {
+      setFormError('Please enter a valid 10-digit phone number.')
+      return
+    }
+
     setFormError('')
 
     const message = cart.map(item => `${item.quantity}x ${item.name} - ₹${item.price * item.quantity}`).join('\n')
     const total = getTotalPrice()
-    const whatsappMessage = `Hello! I\'d like to order:\n\n${message}\n\nTotal: ₹${total}\n\nName: ${userName}\nAddress: ${userAddress}\n\nThank you!`
+    const whatsappMessage = `Hello! I\'d like to order:\n\n${message}\n\nTotal: ₹${total}\n\nName: ${userName}\nAddress: ${userAddress}\nPhone No: ${userPhone}\n\nThank you!`
     const whatsappUrl = `https://wa.me/9601834906?text=${encodeURIComponent(whatsappMessage)}`
     window.open(whatsappUrl, '_blank')
   }
@@ -244,9 +252,10 @@ export default function RestaurantMenu() {
               <div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">Gravy & Grills</h1>
                 <p className="text-sm text-gray-600 dark:text-gray-400">Managed by Hungry Birds</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Open: 11:00 AM - 11:00 PM</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Afternoon: 12:00 PM - 3:00 PM</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Evening: 6:00 PM - 12:00 AM</p>
                 <p className="text-sm text-gray-600 dark:text-gray-400">Cloud Kitchen until 2:00 AM</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Minimum Order: ₹350 (within 3km), ₹500 (beyond 3km)</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Minimum order: ₹350 (up to 3 km) | ₹500 (beyond 3 km)</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -455,7 +464,7 @@ export default function RestaurantMenu() {
 
       {/* Cart Sheet */}
       <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
-        <SheetContent side="bottom" className="h-[80vh] rounded-t-2xl dark:bg-gray-800 dark:border-gray-700 flex flex-col p-4 sm:p-6">
+        <SheetContent side="bottom" className="max-h-[90vh] h-full rounded-t-2xl dark:bg-gray-800 dark:border-gray-700 flex flex-col p-4 sm:p-6">
           <SheetHeader>
             <SheetTitle>Your Cart</SheetTitle>
           </SheetHeader>
@@ -535,7 +544,7 @@ export default function RestaurantMenu() {
                   </Button>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-4 overflow-y-auto max-h-[40vh]">
                   <Input
                     placeholder="Name"
                     value={userName}
@@ -547,6 +556,13 @@ export default function RestaurantMenu() {
                     value={userAddress}
                     onChange={(e) => setUserAddress(e.target.value)}
                     className="h-12 text-base"
+                  />
+                  <Input
+                    placeholder="Phone Number"
+                    value={userPhone}
+                    onChange={(e) => setUserPhone(e.target.value)}
+                    className="h-12 text-base"
+                    type="tel"
                   />
                   {formError && <p className="text-sm text-red-500">{formError}</p>}
                   <Button
