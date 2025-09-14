@@ -10,7 +10,21 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+      backgroundImage: {
+        'restaurant-background': "url('/restaurant_background.jpg')",
+      },
   		colors: {
+        cream: {
+          '100': '#FFFDD0',
+          '200': '#FFFACD',
+          '300': '#FFFAA0',
+          '400': '#FFFFE0',
+          '500': '#FFFFF0',
+          '600': '#F5F5DC',
+          '700': '#E8E4C9',
+          '800': '#DCDCDC',
+          '900': '#C0C0C0',
+        },
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

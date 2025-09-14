@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Separator } from '@/components/ui/separator'
-import { Search, ShoppingCart, Plus, Minus, X, Utensils, Phone, MapPin, Moon, Sun } from 'lucide-react'
+import { Search, ShoppingCart, Plus, Minus, X, Utensils, Phone, MapPin, Moon, Sun, Info } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ThemeToggle } from '@/components/theme-toggle'
 
@@ -99,7 +99,7 @@ const menuData: MenuItem[] = [
   
   // CHOLE KULCHA
   { id: 'chhole-bhatura', name: 'Chhole Bhature', price: 190, description: 'Spiced chickpeas with fluffy fried bread', category: 'CHOLE KULCHA' },
-  { id: 'butter-chole-bhatura', name: 'Butter Chole Bhature', price: 210, description: 'Chhole bhatura with extra butter', category: 'CHOLE KULCHA' },
+  { id: 'butter-chhole-bhatura', name: 'Butter Chole Bhature', price: 210, description: 'Chhole bhatura with extra butter', category: 'CHOLE KULCHA' },
   { id: 'cheese-chhole-bhatura', name: 'Cheese Chole Bhature', price: 230, description: 'Chhole bhatura with cheese', category: 'CHOLE KULCHA' },
   { id: 'butter-milk', name: 'Butter Milk', price: 30, description: 'Refreshing buttermilk drink', category: 'CHOLE KULCHA' },
   { id: 'masala', name: 'Masala', price: 40, description: 'Spiced buttermilk drink', category: 'CHOLE KULCHA' },
@@ -237,116 +237,122 @@ export default function RestaurantMenu() {
   return (
     <div className="min-h-screen bg-background dark:bg-gray-900 flex flex-col">
       {/* Header */}
-      <header className="bg-background dark:bg-gray-800 shadow-sm sticky top-0 z-40">
-        <div className="px-4 py-4">
-          <div className="flex items-center justify-between">
+      <header className="relative bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-40" style={{ backgroundImage: "url(/restaurant_background.jpg)" , backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+        
+        <div className="container mx-auto px-4 h-64 flex items-center">
+          <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 w-full">
+            {/* Left Side: Logo, Name, Tagline */}
             <div className="flex items-center gap-3">
-              <div className="w-24 h-24 rounded-lg overflow-hidden">
+              <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
                 <img
                   src="/gravy-grills-logo.jpg"
                   alt="Gravy & Grills Logo"
                   className="w-full h-full object-contain"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement
-                    target.style.display = 'none'
-                    target.parentElement!.innerHTML = '<div class="w-full h-full bg-orange-500 rounded-lg flex items-center justify-center"><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg></div>'
-                  }}
                 />
               </div>
-              <div className="">
-                <h1 className="text-xl font-bold text-black dark:text-white">Gravy & Grills</h1>
-                <p className="text-sm text-black dark:text-gray-200">Managed by Hungry Birds</p>
-                <p className="text-sm text-black dark:text-gray-200">Afternoon: 12:00 PM - 3:00 PM</p>
-                <p className="text-sm text-black dark:text-gray-200">Evening: 6:00 PM - 12:00 AM</p>
-                <p className="text-sm text-black dark:text-gray-200">Cloud Kitchen until 2:00 AM</p>
-                <p className="text-sm text-black dark:text-gray-200">Minimum order: ₹350 (up to 3 km) | ₹500 (beyond 3 km)</p>
+              <div>
+                <h1 className="text-2xl font-bold text-white">Gravy & Grills</h1>
+                <p className="text-sm text-white">Managed by Hungry Birds</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="hidden md:flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => window.open('tel:9601834906', '_blank')}
-                  className="text-green-600 border-green-600 hover:bg-green-50"
-                >
-                  <Phone className="w-4 h-4 mr-1" />
-                  Call
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => window.open('https://maps.app.goo.gl/d6obgmePqi5HuMBz8', '_blank')}
-                  className="text-blue-600 border-blue-600 hover:bg-blue-50"
-                >
-                  <MapPin className="w-4 h-4 mr-1" />
-                  Find Us
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleZomatoOrder}
-                  className="text-red-600 border-red-600 hover:bg-red-50"
-                >
-                  Order on Zomato
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleSwiggyOrder}
-                  className="text-orange-600 border-orange-600 hover:bg-orange-50"
-                >
-                  Order on Swiggy
-                </Button>
-              </div>
+
+            {/* Right Side: Action Buttons */}
+            <div className="flex items-center gap-2 flex-wrap justify-end">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => window.open('tel:9601834906', '_blank')}
+                className="hidden md:flex bg-background text-green-400 border-green-400 hover:bg-gray-100 dark:bg-gray-900 dark:text-green-400 dark:border-green-400 dark:hover:bg-gray-700"
+              >
+                <Phone className="w-4 h-4 mr-1" />
+                Call
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => window.open('https://maps.app.goo.gl/d6obgmePqi5HuMBz8', '_blank')}
+                className="hidden md:flex bg-background text-blue-400 border-blue-400 hover:bg-gray-100 dark:bg-gray-900 dark:text-blue-400 dark:border-blue-400 dark:hover:bg-gray-700"
+              >
+                <MapPin className="w-4 h-4 mr-1" />
+                Find Us
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleZomatoOrder}
+                className="hidden md:flex bg-background text-red-400 border-red-400 hover:bg-gray-100 dark:bg-gray-900 dark:text-red-400 dark:border-red-400 dark:hover:bg-gray-700"
+              >
+                Order on Zomato
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleSwiggyOrder}
+                className="hidden md:flex bg-background text-orange-400 border-orange-400 hover:bg-gray-100 dark:bg-gray-900 dark:text-orange-400 dark:border-orange-400 dark:hover:bg-gray-700"
+              >
+                Order on Swiggy
+              </Button>
               <ThemeToggle />
-              <div className="md:hidden">
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <Button variant="outline" size="sm">
-                      <Utensils className="w-4 h-4" />
+              {/* Info Sheet for mobile */}
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="icon"                 className="md:hidden bg-background text-gray-800 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-700">
+                    <Info className="w-4 h-4" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="bottom" className="w-full rounded-t-2xl dark:bg-gray-800">
+                  <SheetHeader>
+                    <SheetTitle>Contact & Order</SheetTitle>
+                  </SheetHeader>
+                  <div className="flex flex-col gap-4 py-4">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      onClick={() => window.open('tel:9601834906', '_blank')}
+                      className="bg-black text-green-400 border-green-400 hover:bg-gray-800 dark:bg-black dark:text-green-400 dark:border-green-400 dark:hover:bg-gray-800"
+                    >
+                      <Phone className="w-4 h-4 mr-1" />
+                      Call Us
                     </Button>
-                  </SheetTrigger>
-                  <SheetContent side="right" className="w-[250px]">
-                    <SheetHeader>
-                      <SheetTitle>More Options</SheetTitle>
-                    </SheetHeader>
-                    <div className="grid gap-4 py-4">
-                      <Button
-                        variant="outline"
-                        onClick={() => window.open('tel:9601834906', '_blank')}
-                        className="text-green-600 border-green-600 hover:bg-green-50"
-                      >
-                        <Phone className="w-4 h-4 mr-2" />
-                        Call Us
-                      </Button>
-                      <Button
-                        variant="outline"
-                        onClick={() => window.open('https://maps.app.goo.gl/d6obgmePqi5HuMBz8', '_blank')}
-                        className="text-blue-600 border-blue-600 hover:bg-blue-50"
-                      >
-                        <MapPin className="w-4 h-4 mr-2" />
-                        Find Us
-                      </Button>
-                      <Button
-                        variant="outline"
-                        onClick={handleZomatoOrder}
-                        className="text-red-600 border-red-600 hover:bg-red-50"
-                      >
-                        Order on Zomato
-                      </Button>
-                      <Button
-                        variant="outline"
-                        onClick={handleSwiggyOrder}
-                        className="text-orange-600 border-orange-600 hover:bg-orange-50"
-                      >
-                        Order on Swiggy
-                      </Button>
-                    </div>
-                  </SheetContent>
-                </Sheet>
-              </div>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      onClick={() => window.open('https://maps.app.goo.gl/d6obgmePqi5HuMBz8', '_blank')}
+                      className="bg-black text-blue-400 border-blue-400 hover:bg-gray-800 dark:bg-black dark:text-blue-400 dark:border-blue-400 dark:hover:bg-gray-800"
+                    >
+                      <MapPin className="w-4 h-4 mr-1" />
+                      Find Us
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      onClick={handleZomatoOrder}
+                      className="bg-black text-red-400 border-red-400 hover:bg-gray-800 dark:bg-black dark:text-red-400 dark:border-red-400 dark:hover:bg-gray-800"
+                    >
+                      Order on Zomato
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      onClick={handleSwiggyOrder}
+                      className="bg-black text-orange-400 border-orange-400 hover:bg-gray-800 dark:bg-black dark:text-orange-400 dark:border-orange-400 dark:hover:bg-gray-800"
+                    >
+                      Order on Swiggy
+                    </Button>
+                  </div>
+                </SheetContent>
+              </Sheet>
             </div>
+          </div>
+        </div>
+
+        {/* Timings Section */}
+        <div className="bg-background dark:bg-gray-900 py-4">
+          <div className="container mx-auto px-4 text-center text-sm text-gray-800 dark:text-gray-200">
+              <p><span className="font-semibold">Afternoon:</span> 12:00 PM - 3:00 PM</p>
+              <p><span className="font-semibold">Evening:</span> 6:00 PM - 12:00 AM</p>
+              <p><span className="font-semibold">Cloud Kitchen:</span> until 2:00 AM</p>
+              <p className="text-sm mt-1"><span className="font-semibold">Min. Order:</span> ₹350 (within 3km) | ₹500 (3km+)</p>
           </div>
         </div>
       </header>
@@ -402,12 +408,12 @@ export default function RestaurantMenu() {
                       <div className="flex gap-4">
                         <div className="w-20 h-20 bg-gray-200 rounded-lg flex-shrink-0">
                           <img
-                            src={`/${item.name.toLowerCase().replace(/[\\\s()]/g, '_').replace(/_{2,}/g, '_')}.avif`}
+                            src={`/${item.name.toLowerCase().replace(/[\s()]/g, '_').replace(/_{2,}/g, '_')}.avif`}
                             alt={item.name}
                             className="w-full h-full object-cover rounded-lg"
                             onError={(e) => {
                               const target = e.target as HTMLImageElement;
-                              const baseName = `/${item.name.toLowerCase().replace(/[\\\s()]/g, '_').replace(/_{2,}/g, '_')}`;
+                              const baseName = `/${item.name.toLowerCase().replace(/[\s()]/g, '_').replace(/_{2,}/g, '_')}`;
                               const currentSrc = target.src;
                               if (currentSrc.endsWith('.avif')) {
                                 target.src = `${baseName}.jpg`;
