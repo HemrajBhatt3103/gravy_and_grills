@@ -239,7 +239,7 @@ export default function RestaurantMenu() {
       {/* Header */}
       <header className="relative bg-cover bg-center bg-no-repeat shadow-sm sticky top-0 z-40" style={{ backgroundImage: "url(/restaurant_background.jpg)" , backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
         
-        <div className="container mx-auto px-4 h-64 flex items-center">
+        <div className="container mx-auto px-4 h-48 flex items-center">
           <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 w-full">
             {/* Left Side: Logo, Name, Tagline */}
             <div className="flex items-center gap-3">
@@ -346,16 +346,17 @@ export default function RestaurantMenu() {
           </div>
         </div>
 
-        {/* Timings Section */}
-        <div className="bg-background dark:bg-gray-900 py-4">
-          <div className="container mx-auto px-4 text-center text-sm text-gray-800 dark:text-gray-200">
-              <p><span className="font-semibold">Afternoon:</span> 12:00 PM - 3:00 PM</p>
-              <p><span className="font-semibold">Evening:</span> 6:00 PM - 12:00 AM</p>
-              <p><span className="font-semibold">Cloud Kitchen:</span> until 2:00 AM</p>
-              <p className="text-sm mt-1"><span className="font-semibold">Min. Order:</span> ₹350 (within 3km) | ₹500 (3km+)</p>
-          </div>
+        </header>
+
+      {/* Timings Section */}
+      <div className="bg-background dark:bg-gray-900 py-4">
+        <div className="container mx-auto px-4 text-center text-sm text-gray-800 dark:text-gray-200">
+            <p><span className="font-semibold">Afternoon:</span> 12:00 PM - 3:00 PM</p>
+            <p><span className="font-semibold">Evening:</span> 6:00 PM - 12:00 AM</p>
+            <p><span className="font-semibold">Cloud Kitchen:</span> until 2:00 AM</p>
+            <p className="text-sm mt-1"><span className="font-semibold">Min. Order:</span> ₹350 (within 3km) | ₹500 (3km+)</p>
         </div>
-      </header>
+      </div>
 
       {/* Search Bar */}
       <div className="max-w-4xl mx-auto px-4 py-4">
